@@ -17,7 +17,7 @@ A Flutter-based mobile application for QR code attendance management with Fireba
 - 📋 View and manage attendance records
 - ✏️ Update attendance status (Present/Late/Absent)
 - 📅 Filter attendance by date
-- 📊 View attendance statistics
+- 📊 View attendance history for each of their classes.
 
 ## Tech Stack
 
@@ -65,35 +65,9 @@ lib/
 
 ### 2. Configure Authentication
 - Enable Email/Password authentication in Firebase Console
-- Go to Authentication > Sign-in method > Enable Email/Password
 
 ### 3. Configure Firestore Database
-- Create a Firestore database in production mode
-- Set up the following security rules:
-
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Users can read/write their own user document
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    
-    // Anyone can read classes, only teachers can write
-    match /classes/{classId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        resource.data.teacherId == request.auth.uid;
-    }
-    
-    // Attendance records
-    match /attendance/{attendanceId} {
-      allow read, write: if request.auth != null;
-    }
-  }
-}
-```
+- Create a Firestore database and follow the next steps for futher configuration.
 
 ### 4. Add Firebase Configuration
 1. Download `google-services.json` for Android and place in `android/app/`
@@ -122,7 +96,7 @@ flutter pub get
 
 3. **Configure Firebase**
 - Follow the Firebase setup instructions above
-- Update `firebase_options.dart` with your project details
+- Update `firebase_options.dart` with your project details from the `google-services.json`.
 
 4. **Run the app**
 ```bash
@@ -171,8 +145,8 @@ flutter run
   email: string,
   name: string,
   role: "student" | "teacher",
-  studentId?: string, // Only for students
-  classIds: string[] // Classes enrolled/teaching
+  studentId?: string,
+  classIds: string[] 
 }
 ```
 
@@ -199,7 +173,7 @@ flutter run
   studentName: string,
   timestamp: timestamp,
   status: "present" | "late" | "absent",
-  dateStr: string, // YYYY-MM-DD format for daily uniqueness
+  dateStr: string, // YYYY-MM-DD format
   notes?: string
 }
 ```
@@ -212,13 +186,6 @@ The app requires the following permissions:
 - `CAMERA` - For QR code scanning
 - `INTERNET` - For Firebase connectivity
 - `ACCESS_NETWORK_STATE` - For network status
-
-## Customization
-
-### Theme
-- Modify `lib/utils/theme.dart` to customize app colors and styling
-- Primary color: `#6366F1` (Indigo)
-- Secondary color: `#EC4899` (Pink)
 
 ### Features to Add
 - [ ] Push notifications for attendance reminders
@@ -247,18 +214,10 @@ The app requires the following permissions:
    - Check Flutter and Dart SDK versions
    - Verify all dependencies are compatible
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## Support and Contribution
 
-For support or questions, please open an issue in the repository or contact the development team.
+For support or questions, please feel free to reach out to me.
