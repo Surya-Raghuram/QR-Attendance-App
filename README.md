@@ -21,11 +21,11 @@ A Flutter-based mobile application for QR code attendance management with Fireba
 
 ## Tech Stack
 
-- **Frontend:** Flutter (Dart)
+- **Frontend:** Flutter 
 - **Backend:** Firebase (Firestore, Authentication)
-- **QR Code Generation:** qr_flutter
-- **QR Code Scanning:** qr_code_scanner
-- **State Management:** Provider
+- **QR Code Generation:** `qr_flutter`
+- **QR Code Scanning:** `qr_code_scanner`
+- **State Management:** `Provider`
 
 ## Project Structure
 
@@ -161,7 +161,6 @@ flutter run
 - Firebase Authentication for user management
 - Firestore security rules to protect data
 - Input validation on all forms
-- Error handling for network issues
 
 ## Database Schema
 
