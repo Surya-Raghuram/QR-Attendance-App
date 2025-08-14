@@ -1,3 +1,4 @@
+import 'dart:async'; // Added import
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -15,9 +16,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   bool _isProcessing = false;
+  StreamSubscription? _scanSubscription; // Added StreamSubscription field
 
   @override
   void dispose() {
+    _scanSubscription?.cancel(); // Cancelled subscription
     controller?.dispose();
     super.dispose();
   }
@@ -120,7 +123,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) async {
+    _scanSubscription = controller.scannedDataStream.listen((scanData) async { // Assigned to _scanSubscription
       if (!_isProcessing && scanData.code != null) {
         setState(() {
           _isProcessing = true;

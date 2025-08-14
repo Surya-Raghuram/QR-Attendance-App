@@ -62,6 +62,18 @@ class _StudentHomeState extends State<StudentHome> {
           ),
         ],
       ),
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => JoinClassScreen()),
+                );
+              },
+              child: const Icon(Icons.add),
+              tooltip: 'Join Class',
+            )
+          : null,
     );
   }
 

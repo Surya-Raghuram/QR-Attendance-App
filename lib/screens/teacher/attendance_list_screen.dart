@@ -128,13 +128,14 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
                           _buildStatItem(
                             context,
                             'Absent',
-                            '${widget.classModel.enrolledStudents.length - snapshot.data!.length}',
+                            '${(widget.classModel.enrolledStudents.length - snapshot.data!.length).clamp(0, widget.classModel.enrolledStudents.length)}',
                             Colors.red,
                             Icons.cancel,
                           ),
                         ],
                       ),
-                    ),
+                    )
+                    ,
                     const SizedBox(height: 16),
                     Expanded(
                       child: ListView.builder(
